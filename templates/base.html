@@ -1,0 +1,37 @@
+{% extends 'home.html' %}
+{% load mathfilters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block styles %}
+  <link rel="stylesheet" href='{% static "css/landingpage.css"%}'>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src='{% static "js/landingpage.js" %}' ></script>
+{% endblock%}
+
+{% block content %}
+	{% if user.is_authenticated %}
+	<body id="body" style="background-image: url('{% static "images/ride.jpg"%}')";>
+		<div id="block">
+			<div id="middleblock">
+				<h1>Ride Share</h1>
+				<hr>
+				<p>Welcome back, {{ user.get_full_name }}!</p>
+				<button id="play" type="button" class="btn btn-warning btn-lg" onclick="location.href ='{% url 'ridelist' %}'">Ride List!</button>
+			</div>
+		</div>
+	</body>
+  	{% else %}
+	<body id="body" style="background-image: url('{% static "images/ride.jpg"%}')";>
+		<div id="block">
+			<div id="middleblock">
+				<h1>Ride Share</h1>
+				<hr>
+				<p>Create and Join Rides made by fellow peers!</p>
+				<button id="play" type="button" class="btn btn-warning btn-lg" onclick="location.href ='{% url 'signup' %}'">Join Now!</button>
+			</div>
+		</div>
+	</body>
+  	{% endif %}
+{% endblock %}

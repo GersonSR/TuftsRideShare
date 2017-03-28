@@ -1,0 +1,13 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User and Rides Info List</title>
+    </head>
+    <body>
+        <div id="rides"></div>
+        {% render_bundle 'main' %}
+        <div id="users"></div>
+        {% render_bundle 'main' %}
+    </body>
+</html>

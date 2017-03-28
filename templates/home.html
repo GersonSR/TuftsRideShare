@@ -1,0 +1,76 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RideShare</title>
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script 
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+    crossorigin="anonymous"></script>
+    {% block styles %}
+    {% endblock %}
+    {% block scripts %}
+    {% endblock %}
+  </head>
+  <body>
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}">RideShare</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              {% if user.is_authenticated %}
+<!--          <li><a href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a></li> -->
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+              <li><a href="{% url 'ridelist' %}">Ride List</a></li>
+
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rides<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'myrides' %}">My Rides</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{% url 'joinedrides' %}">Joined Rides</a></li>
+              </ul>
+              </li>
+              <li><a href="{% url 'create' %}">Create a Ride</a></li>
+              <li><a href="{% url 'profile' %}">Profile</a></li>
+              <li><a href="{% url 'postman:inbox' %}">Messages</a></li>
+              {% else %}
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'signup' %}">Sign Up</a></li>
+              {% endif %}
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    <main>
+      {% block title %}
+      {% endblock %}
+      {% block postman_menu %}
+      {% endblock %}
+      {% block extrahead %}
+      {% endblock %}
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>

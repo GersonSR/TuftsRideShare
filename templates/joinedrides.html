@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+{% load mathfilters %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load render_table from django_tables2 %}
+
+{% block styles %}
+  <link rel="stylesheet" href='{% static "django_tables2/themes/paleblue/css/screen.css"%}'>
+{% endblock%}
+
+{% block content %}
+<div class="container">
+    <h3>Joined Rides!</h3>
+    <div class="row">
+        <div class="col-sm-10">
+            {% render_table table %}
+        </div>
+    </div>
+</div>
+{% endblock %}

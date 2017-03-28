@@ -1,0 +1,27 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href='{% static "css/createaride.css"%}'>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src='{% static "js/register.js" %}' ></script>
+{% endblock%}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container">
+<div class="col-md-7 col-md-offset-2">
+    <div class="form-area">  
+        <form method="POST" role="form">
+        <br style="clear:both">
+                    <h3 style="margin-bottom: 25px; text-align: center;">Register to Ride Share!</h3>
+                      {% csrf_token %}
+                      {{ form | crispy }}
+        <a href="{% url 'login' %}" class="text-center new-account">Already a member? Login! </a>          
+        <button type="submit" name="submit" class="btn btn-primary pull-right">Register</button>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

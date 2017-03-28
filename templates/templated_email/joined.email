@@ -1,0 +1,13 @@
+{% block subject %}Your ride to {{destination}}{% endblock %}
+{% block plain %}
+  Hi {{creator_full_name}},
+
+  Someone just joined your ride to {{destination}}!
+
+      username: {{joined_username}}
+
+  You can view the ride here:
+  	http://gsalme.pythonanywhere.com/ridelist/{{ridepk}}
+  
+  From, Ride Share!
+{% endblock %}

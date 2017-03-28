@@ -1,0 +1,122 @@
+{% extends 'home.html' %}
+{% load mathfilters %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href='{% static "css/ridedetail.css"%}'>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src='{% static "js/ridedetail.js" %}' ></script>
+{% endblock%}
+
+{% block content %}
+	<div class="page-header">
+ 		<h1> Ride to {{ ride.destination }} <small> Ride Details </small></h1>
+	</div>
+	<div id="rideDetails" class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Ride Details</h3>
+		</div>
+	   <table class = "table table-striped">
+	      <thead>
+	         <tr>
+	            <th>Info</th>
+	            <th>Details</th>
+	         </tr>
+	      </thead>
+	      
+	      <tbody>
+	         <tr>
+	            <td>Destination</td>
+	            <td>{{ ride.destination }}</td>
+	         </tr>
+	         
+	         <tr>
+	            <td>Meetup Location</td>
+	            <td>{{ ride.meetup_location }}</td>
+	         </tr>
+
+	         <tr>
+	            <td>Total Seats</td>
+	            <td>{{ ride.total_seats}}</td>
+	         </tr>
+	         
+	         <tr>
+	            <td>Avaliable Seats</td>
+	            <td>{{ ride.seats_avaliable }}</td>
+	         </tr>
+	         
+	         <tr>
+	            <td>Meetup Time</td>
+	            <td>{{ ride.meetup_time }}</td>
+	         </tr>
+
+	         <tr>
+	            <td>Transportation Type</td>
+	            <td>{{ ride.transportation_type }}</td>
+	         </tr>
+
+	         <tr>
+	            <td>Total Cost</td>
+	            <td>{{ ride.total_cost }}</td>
+	         </tr>
+
+	         <tr>
+	            <td>Cost Per Person</td>
+	            <td>{{ ride.cost_per_person }}</td>
+	         </tr>
+
+	         <tr>
+	            <td>Creator</td>
+	            <td>{{ ride.creator }}</td>
+	         </tr>	     	         	         	         
+	      </tbody>
+	      
+	   </table>
+		<div class="panel-footer">
+			{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+			<a class="btn btn-primary" href ={%url 'addrider' ride.id %} role="button">
+				Check In
+			</a>
+			{% if rider.create != user.username %}
+        	<a class="btn btn-danger" href ={%url 'leaveride' ride.id %} role="button" class='button-primary'>
+            	Leave Ride
+        	</a>
+			{% endif %}
+		</div>
+	</div> 
+
+	<div id="riders" class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Riders</h3>
+		</div>
+		<div class="panel-body">
+			A list of all involved Riders!
+		</div>
+		<!-- Table -->
+  		<table class="table table-striped">
+  		    <thead>
+      			<tr>
+        			<th>Rider</th>
+        			<th>Profile</th>
+        			<th>Contact</th>
+      			</tr>
+    		</thead>
+    		<tbody>
+		      {% for rider in riders %}
+				<tr>
+					<td>{{rider.rider.username}}</td>
+					<td><a href ={%url 'userdetails' rider.rider.username %}>
+			    		View User
+					</a></td>
+					{%if rider.rider != user%}
+					<td><a href="{% url 'postman:write' rider.rider.username %}?subject=Ride to {{ride.destination}} on {{ride.meetup_time}}&?body=Hello!...">
+			  			Contact User
+			  		</a></td>
+			  		{% endif %}
+				</tr>  
+				{% endfor %}
+		    </tbody>
+    	</table>
+	</div>
+{% endblock %}
