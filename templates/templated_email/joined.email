@@ -7,7 +7,7 @@
       username: {{joined_username}}
 
   You can view the ride here:
-  	http://gsalme.pythonanywhere.com/ridelist/{{ridepk}}
+  	https://tuftsrideshare.herokuapp.com/ridelist/{{ridepk}}
   
   From, Ride Share!
 {% endblock %}
