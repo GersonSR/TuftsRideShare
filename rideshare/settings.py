@@ -152,7 +152,7 @@ WEBPACK_LOADER = {
     }
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 POSTMAN_AUTO_MODERATE_AS = True
 
@@ -163,13 +163,10 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Not Completed/ Still figuring out host
 
-TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
-
-TEMPLATED_EMAIL_USE_TLS = True
-TEMPLATED_EMAIL_HOST = 'smtp.gmail.com'
-TEMPLATED_EMAIL_HOST_USER = 'salmeron.gerson@gmail.com'
-TEMPLATED_EMAIL_HOST_PASSWORD = 'aioo sjip myoh bjem'
-TEMPLATED_EMAIL_PORT = 587
-
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = config('HOST_PASSWORD')
+EMAIL_USE_TLS = True
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

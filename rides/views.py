@@ -179,28 +179,27 @@ def addrider(request, pk):
     	if seats_taken != ride.total_seats:
             Passenger.objects.create(rider=request.user, ride=ride)
             ride.seats_avaliable = ride.seats_avaliable - 1
+            creator = User.objects.get(username__iexact=ride.creator)
+            creator_email = creator.email
+            send_templated_mail(
+                template_name='joined',
+                from_email='noreply@unirideshare.xyz',
+                recipient_list=[creator.email],
+                context={
+                    'destination':ride.destination,
+                    'creator_username':creator.username,
+                    'joined_username':request.user.username,
+                    'ridepk':pk,
+                    'creator_full_name':creator.get_full_name(),
+                },
+                # Optional:
+                # cc=['cc@example.com'],
+                # bcc=['bcc@example.com'],
+                # headers={'My-Custom-Header':'Custom Value'},
+                # template_prefix="my_emails/",
+                # template_suffix="email",
+            )
             ride.save()
-            # To Be Worked On
-            # creator = User.objects.get(username__iexact=ride.creator)
-            # creator_email = creator.email
-            # send_templated_mail(
-            #     template_name='joined',
-            #     from_email='salmeron.gerson@gmail.com',
-            #     recipient_list=[creator.email],
-            #     context={
-            #         'destination':ride.destination,
-            #         'creator_username':creator.username,
-            #         'joined_username':request.user.username,
-            #         'ridepk':pk,
-            #         'creator_full_name':creator.get_full_name(),
-            #     },
-            #     # Optional:
-            #     # cc=['cc@example.com'],
-            #     # bcc=['bcc@example.com'],
-            #     # headers={'My-Custom-Header':'Custom Value'},
-            #     # template_prefix="my_emails/",
-            #     # template_suffix="email",
-            # )
     	else:
         	return render(request, 'ridedetail.html', {
         		'ride': ride,
